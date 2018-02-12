@@ -57,7 +57,7 @@
                rho_hat =
          
     ---------------------------- */
-    typedef struct HalfPoints
+    struct HalfPoints_
     {
        // Metric Parameters
        double ** xhi_csi;
@@ -119,7 +119,9 @@
        double ** rho_bar_hj;   // half j;
        
        
-    } * HP;
+    };
+    typedef struct HalfPoints_ HalfPoints;
+
     /* ------- STRUCT 2 --------
     Integer-Point Struct (IPstruct):
          
@@ -132,14 +134,17 @@
          (4) - density
             
     ---------------------------- */
-    typedef struct IntegerPoints
+    struct IntegerPoints_
     {
        double ** residue;
        double ** fi;
        double ** corr;
        double ** rho;
-       double resMax;
-       
+       double *  resMax;
+       double *  resL1;
+       double *  resL2;
+       double *  beta;
+
        // Derivatives
        double ** x_csi;
        double ** x_eta;
@@ -169,21 +174,22 @@
        // Mach
        double M_INF;
        
-    } * IP;
-    
+    };
+    typedef struct IntegerPoints_ IntegerPoints;
     // Mesh struct
-    typedef struct MeshGrid
+    struct MeshGrid_
     {
        double ** x;
        double ** y;
        
-    } * mesh;
+    };
+    typedef struct MeshGrid_ MeshGrid;
     
     int IMAX;
     int JMAX;
     
     // Thomas Algorithm input
-    typedef struct ThomStr
+    struct ThomStr_
     {
        double * a;
        double * b;
@@ -192,5 +198,6 @@
        double * LHS;
        int k;
        
-    } * T;
+    };
+    typedef struct ThomStr_ ThomStr;
 #endif

@@ -327,8 +327,8 @@
 
 	        HP->xhj_csi[i][j] = 0.25*((mesh->x[i+1][j+1] - mesh->x[i-1][j+1]) + (mesh->x[i+1][j] - mesh->x[i-1][j]));  // x_csi(i,j+1/2)
 	        HP->yhj_csi[i][j] = 0.25*((mesh->y[i+1][j+1] - mesh->y[i-1][j+1]) + (mesh->y[i+1][j] - mesh->y[i-1][j]));  // y_csi(i,j+1/2)
-	        HP->xhi_eta[i][j] = 0.5*(-3.0*(mesh->x[i+1][j]+mesh->x[i][j]) +4.0*(mesh->x[i+1][j+1]+mesh->x[i][j+1]) -(mesh->x[i+1][j+2] + mesh->x[i][j+2]));  // x_eta(i+1/2,j)
-	        HP->yhi_eta[i][j] = 0.5*(-3.0*(mesh->y[i+1][j]+mesh->y[i][j]) +4.0*(mesh->y[i+1][j+1]+mesh->y[i][j+1]) -(mesh->y[i+1][j+2] + mesh->y[i][j+2]));  // y_eta(i+1/2,j)	
+	        HP->xhi_eta[i][j] = 0.25*(-3.0*(mesh->x[i+1][j]+mesh->x[i][j]) +4.0*(mesh->x[i+1][j+1]+mesh->x[i][j+1]) -(mesh->x[i+1][j+2] + mesh->x[i][j+2]));  // x_eta(i+1/2,j)
+	        HP->yhi_eta[i][j] = 0.25*(-3.0*(mesh->y[i+1][j]+mesh->y[i][j]) +4.0*(mesh->y[i+1][j+1]+mesh->y[i][j+1]) -(mesh->y[i+1][j+2] + mesh->y[i][j+2]));  // y_eta(i+1/2,j)	
     	}
     	else if(i==0 && j==0)
     	{
@@ -345,8 +345,8 @@
 
 	        HP->xhj_csi[i][j] = 0.25*((mesh->x[i+1][j+1] - mesh->x[IMAX-2][j+1]) + (mesh->x[i+1][j] - mesh->x[IMAX-2][j]));  // x_csi(i,j+1/2)
 	        HP->yhj_csi[i][j] = 0.25*((mesh->y[i+1][j+1] - mesh->y[IMAX-2][j+1]) + (mesh->y[i+1][j] - mesh->y[IMAX-2][j]));  // y_csi(i,j+1/2)
-	        HP->xhi_eta[i][j] = 0.5*(-3.0*(mesh->x[i+1][j]+mesh->x[i][j]) +4.0*(mesh->x[i+1][j+1]+mesh->x[i][j+1]) -(mesh->x[i+1][j+2] + mesh->x[i][j+2]));  // x_eta(i+1/2,j)
-	        HP->yhi_eta[i][j] = 0.5*(-3.0*(mesh->y[i+1][j]+mesh->y[i][j]) +4.0*(mesh->y[i+1][j+1]+mesh->y[i][j+1]) -(mesh->y[i+1][j+2] + mesh->y[i][j+2]));  // y_eta(i+1/2,j)		
+	        HP->xhi_eta[i][j] = 0.25*(-3.0*(mesh->x[i+1][j]+mesh->x[i][j]) +4.0*(mesh->x[i+1][j+1]+mesh->x[i][j+1]) -(mesh->x[i+1][j+2] + mesh->x[i][j+2]));  // x_eta(i+1/2,j)
+	        HP->yhi_eta[i][j] = 0.25*(-3.0*(mesh->y[i+1][j]+mesh->y[i][j]) +4.0*(mesh->y[i+1][j+1]+mesh->y[i][j+1]) -(mesh->y[i+1][j+2] + mesh->y[i][j+2]));  // y_eta(i+1/2,j)		
     	}
     	else if(i==IMAX-1 && j <JMAX-1)
     	{
@@ -382,10 +382,6 @@
     		{
     			IP->x_csi[i][j] = 0.5*(mesh->x[i+1][j] - mesh->x[IMAX-2][j]);  // x_csi(i,j) 
 	        	IP->y_csi[i][j] = 0.5*(mesh->y[i+1][j] - mesh->y[IMAX-2][j]);  // y_csi(i,j)
-	        	
-	        	// HP->xhj_csi[i][j] = 0.25*((mesh->x[i+1][j+1] - mesh->x[IMAX-2][j+1]) + (mesh->x[i+1][j] - mesh->x[IMAX-2][j]));  // x_csi(i,j+1/2)
-	        	// HP->yhj_csi[i][j] = 0.25*((mesh->y[i+1][j+1] - mesh->y[IMAX-2][j+1]) + (mesh->y[i+1][j] - mesh->y[IMAX-2][j]));  // y_csi(i,j+1/2)
-	        
     		}
     		else
     		{
@@ -402,9 +398,10 @@
 	        // HP->xhj_eta[i][j] = (mesh->x[i][j+1] - mesh->x[i][j]);  // x_eta(i,j+1/2)
 	        // HP->yhj_eta[i][j] = (mesh->y[i][j+1] - mesh->y[i][j]);  // y_eta(i,j+1/2)
 	        
-	        
-	        HP->xhi_eta[i][j] = 0.5*(3.0*(mesh->x[i+1][j]+mesh->x[i][j]) -4.0*(mesh->x[i+1][j-1]+mesh->x[i][j-1]) +(mesh->x[i+1][j-2] + mesh->x[i][j-2]));  // x_eta(i+1/2,j)
-	        HP->yhi_eta[i][j] = 0.5*(3.0*(mesh->y[i+1][j]+mesh->y[i][j]) -4.0*(mesh->y[i+1][j-1]+mesh->y[i][j-1]) +(mesh->y[i+1][j-2] + mesh->y[i][j-2]));  // y_eta(i+1/2,j)		
+	        // HP->xhj_csi[i][j] = 0.25*((mesh->x[i+1][j+1] - mesh->x[i-1][j+1]) + (mesh->x[i+1][j] - mesh->x[i-1][j]));  // x_csi(i,j+1/2)
+	        // HP->yhj_csi[i][j] = 0.25*((mesh->y[i+1][j+1] - mesh->y[i-1][j+1]) + (mesh->y[i+1][j] - mesh->y[i-1][j]));  // y_csi(i,j+1/2)
+	        HP->xhi_eta[i][j] = 0.25*(3.0*(mesh->x[i+1][j]+mesh->x[i][j]) -4.0*(mesh->x[i+1][j-1]+mesh->x[i][j-1]) +(mesh->x[i+1][j-2] + mesh->x[i][j-2]));  // x_eta(i+1/2,j)
+	        HP->yhi_eta[i][j] = 0.25*(3.0*(mesh->y[i+1][j]+mesh->y[i][j]) -4.0*(mesh->y[i+1][j-1]+mesh->y[i][j-1]) +(mesh->y[i+1][j-2] + mesh->y[i][j-2]));  // y_eta(i+1/2,j)		
     	}
     	else if(i==IMAX-1 && j==JMAX-1)
     	{
@@ -421,8 +418,8 @@
 
 	        // HP->xhj_csi[i][j] = 0.25*((mesh->x[i+1][j+1] - mesh->x[i-1][j+1]) + (mesh->x[i+1][j] - mesh->x[i-1][j]));  // x_csi(i,j+1/2)
 	        // HP->yhj_csi[i][j] = 0.25*((mesh->y[i+1][j+1] - mesh->y[i-1][j+1]) + (mesh->y[i+1][j] - mesh->y[i-1][j]));  // y_csi(i,j+1/2)
-	        HP->xhi_eta[i][j] = 0.5*(3.0*(mesh->x[1][j]+mesh->x[i][j]) -4.0*(mesh->x[1][j-1]+mesh->x[i][j-1]) +(mesh->x[1][j-2] + mesh->x[i][j-2]));  // x_eta(i+1/2,j)
-	        HP->yhi_eta[i][j] = 0.5*(3.0*(mesh->y[1][j]+mesh->y[i][j]) -4.0*(mesh->y[1][j-1]+mesh->y[i][j-1]) +(mesh->y[1][j-2] + mesh->y[i][j-2]));  // y_eta(i+1/2,j)	
+	        HP->xhi_eta[i][j] = 0.25*(3.0*(mesh->x[1][j]+mesh->x[i][j]) -4.0*(mesh->x[1][j-1]+mesh->x[i][j-1]) +(mesh->x[1][j-2] + mesh->x[i][j-2]));  // x_eta(i+1/2,j)
+	        HP->yhi_eta[i][j] = 0.25*(3.0*(mesh->y[1][j]+mesh->y[i][j]) -4.0*(mesh->y[1][j-1]+mesh->y[i][j-1]) +(mesh->y[1][j-2] + mesh->y[i][j-2]));  // y_eta(i+1/2,j)	
     	}
     	else
     	{
@@ -571,7 +568,7 @@
         {
             for(j=0;j<=JMAX-1;j++)
             {
-            	
+            	fprintf(fw,"%lf %lf\n",mesh->x[i][j],mesh->y[i][j]);
                 // Calculate Integer-Point derivatives x_csi, x_eta, y_csi and y_eta
                 // and Half-Point derivatives xhi_csi, xhi_eta, yhi_csi, yhi_eta
                 //                            xhj_csi, xhj_eta, yhj_csi, yhj_eta
@@ -591,8 +588,6 @@
                 //                      A1_hi, A2_hi, A3_hi
                 //                      A1_hj, A2_hj, A3_hj
                 HPmetrics(HP,IP,i,j);
-
-                fprintf(fw,"%lf %lf %lf %lf %lf\n",mesh->x[i][j],mesh->y[i][j],HP->xhi_csi[i][j],HP->xhi_eta[i][j],HP->J_hi[i][j]);
             }
         }
         fclose(fw);
@@ -621,21 +616,18 @@
 	        HP->fi_eta_hi[i][j] = 0.25*((IP->fi[i+1][j+1] - IP->fi[i+1][j-1]) + (IP->fi[i][j+1] - IP->fi[i][j-1]));
 	        
 	        HP->fi_csi_hj[i][j] = 0.25*((IP->fi[i+1][j+1] - IP->fi[IMAX-2][j+1]) + (IP->fi[i+1][j] - IP->fi[IMAX-2][j])); 
-	        HP->fi_eta_hj[i][j] = (IP->fi[i][j+1] - IP->fi[i][j]);			
+	        HP->fi_eta_hj[i][j] = (IP->fi[i][j+1] - IP->fi_csi[i][j]);			
     	}
     	else if(i>0 && j==0  && i<IMAX-1)
     	{
     		IP->fi_csi[i][j] = 0.5*(IP->fi[i+1][j] - IP->fi[i-1][j]);
 	        IP->fi_eta[i][j] = 0.5*(-3.0*IP->fi[i][j] + 4.0*IP->fi[i][j+1] - IP->fi[i][j+2]);
-
 	        
 	        HP->fi_csi_hi[i][j] = (IP->fi[i+1][j] - IP->fi[i][j]);
-	        // HP->fi_eta_hi[i][j] = 0.25*(-3.0*(IP->fi[i+1][j]+IP->fi[i][j]) +4.0*(IP->fi[i+1][j+1]+IP->fi[i][j+1]) -(IP->fi[i+1][j+2] + IP->fi[i][j+2]));
+	        HP->fi_eta_hi[i][j] = 0.25*(-3.0*(IP->fi[i+1][j]+IP->fi[i][j]) +4.0*(IP->fi[i+1][j+1]+IP->fi[i][j+1]) -(IP->fi[i+1][j+2] + IP->fi[i][j+2]));
 	        
-	        HP->fi_eta_hi[i][j] = 0.5*(-(IP->fi[i+1][j]+IP->fi[i][j]) + (IP->fi[i+1][j+1]+IP->fi[i][j+1]));
-
 	        HP->fi_csi_hj[i][j] = 0.25*((IP->fi[i+1][j+1] - IP->fi[i-1][j+1]) + (IP->fi[i+1][j] - IP->fi[i-1][j])); 
-	        HP->fi_eta_hj[i][j] = (IP->fi[i][j+1] - IP->fi[i][j]);	
+	        HP->fi_eta_hj[i][j] = (IP->fi[i][j+1] - IP->fi_csi[i][j]);	
 
     	}
     	else if(i==0 && j==0)
@@ -644,25 +636,22 @@
 	        IP->fi_eta[i][j] = 0.5*(-3.0*IP->fi[i][j] + 4.0*IP->fi[i][j+1] - IP->fi[i][j+2]);
 	        
 	        HP->fi_csi_hi[i][j] = (IP->fi[i+1][j] - IP->fi[i][j]);
-	        // HP->fi_eta_hi[i][j] = 0.25*(-3.0*(IP->fi[i+1][j]+IP->fi[i][j]) +4.0*(IP->fi[i+1][j+1]+IP->fi[i][j+1]) -(IP->fi[i+1][j+2] + IP->fi[i][j+2]));
-	        HP->fi_eta_hi[i][j] = 0.5*(-(IP->fi[i+1][j]+IP->fi[i][j]) + (IP->fi[i+1][j+1]+IP->fi[i][j+1]));
-
+	        HP->fi_eta_hi[i][j] = 0.25*(-3.0*(IP->fi[i+1][j]+IP->fi[i][j]) +4.0*(IP->fi[i+1][j+1]+IP->fi[i][j+1]) -(IP->fi[i+1][j+2] + IP->fi[i][j+2]));
+	        
 	        HP->fi_csi_hj[i][j] = 0.25*((IP->fi[i+1][j+1] - IP->fi[IMAX-2][j+1]) + (IP->fi[i+1][j] - IP->fi[IMAX-2][j])); 
-	        HP->fi_eta_hj[i][j] = (IP->fi[i][j+1] - IP->fi[i][j]);		
+	        HP->fi_eta_hj[i][j] = (IP->fi[i][j+1] - IP->fi_csi[i][j]);		
     	}
     	else if(i==IMAX-1 && j <JMAX-1)
     	{
     		IP->fi_csi[i][j] = 0.5*(IP->fi[1][j] - IP->fi[i-1][j]);
 	        
 	        HP->fi_csi_hi[i][j] = (IP->fi[1][j] - IP->fi[i][j]);
-	        HP->fi_eta_hj[i][j] = (IP->fi[i][j+1] - IP->fi[i][j]);			
+	        HP->fi_eta_hj[i][j] = (IP->fi[i][j+1] - IP->fi_csi[i][j]);			
 
 	        if(j==0)
 	        {
 	        	IP->fi_eta[i][j] = 0.5*(-3.0*IP->fi[i][j] + 4.0*IP->fi[i][j+1] - IP->fi[i][j+2]);
-	        	// HP->fi_eta_hi[i][j] = 0.25*(-3.0*(IP->fi[1][j]+IP->fi[i][j]) +4.0*(IP->fi[1][j+1]+IP->fi[i][j+1]) -(IP->fi[1][j+2] + IP->fi[i][j+2]));
-	        	HP->fi_eta_hi[i][j] = 0.5*(-(IP->fi[1][j]+IP->fi[i][j]) + (IP->fi[1][j+1]+IP->fi[i][j+1]));
-
+	        	HP->fi_eta_hi[i][j] = 0.25*(-3.0*(IP->fi[1][j]+IP->fi[i][j]) +4.0*(IP->fi[1][j+1]+IP->fi[i][j+1]) -(IP->fi[1][j+2] + IP->fi[i][j+2]));
 	        	HP->fi_csi_hj[i][j] = 0.25*((IP->fi[1][j+1] - IP->fi[i-1][j+1]) + (IP->fi[1][j] - IP->fi[i-1][j])); 
 	        }
 	        else
@@ -712,7 +701,7 @@
 	        HP->fi_eta_hi[i][j] = 0.25*((IP->fi[i+1][j+1] - IP->fi[i+1][j-1]) + (IP->fi[i][j+1] - IP->fi[i][j-1]));
 	        
 	        HP->fi_csi_hj[i][j] = 0.25*((IP->fi[i+1][j+1] - IP->fi[i-1][j+1]) + (IP->fi[i+1][j] - IP->fi[i-1][j])); 
-	        HP->fi_eta_hj[i][j] = (IP->fi[i][j+1] - IP->fi[i][j]);
+	        HP->fi_eta_hj[i][j] = (IP->fi[i][j+1] - IP->fi_csi[i][j]);
     	}
         
     }
@@ -745,16 +734,16 @@
         	HP->rho_hi[i][j] = pow((1.0 - ((gamma-1.0)/(gamma+1.0))*(HP->U_hi[i][j]*HP->fi_csi_hi[i][j] + HP->V_hi[i][j]*HP->fi_eta_hi[i][j])),(1.0/(gamma-1.0)));	
     	// }
         
-//         printf("HP->U_hi[%d][%d]=%lf\n",i,j,HP->U_hi[i][j]);
-//         printf("HP->V_hi[%d][%d]=%lf\n",i,j,HP->V_hi[i][j]);
-// 		printf("HP->fi_csi_hi[%d][%d]=%lf\n",i,j,HP->fi_csi_hi[i][j]);
-//         printf("HP->fi_eta_hi[%d][%d]=%lf\n",i,j,HP->fi_eta_hi[i][j]);
-//         printf("HP->rho_hi[%d][%d]=%lf\n",i,j,HP->rho_hi[i][j]);
-//         printf("IP->rho[%d][%d]=%lf\n",i,j,IP->rho[i][j]);
-// printf("calc=%lf\n",pow((1.0 - ((gamma-1.0)/(gamma+1.0))*(HP->U_hi[i][j]*HP->fi_csi_hi[i][j] + HP->V_hi[i][j]*HP->fi_eta_hi[i][j])),(1.0/(gamma-1.0))));
-// printf("calc2=%lf\n",pow((1.0 - ((gamma-1.0)/(gamma+1.0))*(22.91484091469)),(1.0/(gamma-1.0))));
+        printf("HP->U_hi[%d][%d]=%lf\n",i,j,HP->U_hi[i][j]);
+        printf("HP->V_hi[%d][%d]=%lf\n",i,j,HP->V_hi[i][j]);
+		printf("HP->fi_csi_hi[%d][%d]=%lf\n",i,j,HP->fi_csi_hi[i][j]);
+        printf("HP->fi_eta_hi[%d][%d]=%lf\n",i,j,HP->fi_eta_hi[i][j]);
+        printf("HP->rho_hi[%d][%d]=%lf\n",i,j,HP->rho_hi[i][j]);
+        printf("IP->rho[%d][%d]=%lf\n",i,j,IP->rho[i][j]);
+printf("calc=%lf\n",pow((1.0 - ((gamma-1.0)/(gamma+1.0))*(HP->U_hi[i][j]*HP->fi_csi_hi[i][j] + HP->V_hi[i][j]*HP->fi_eta_hi[i][j])),(1.0/(gamma-1.0))));
+printf("calc2=%lf\n",pow((1.0 - ((gamma-1.0)/(gamma+1.0))*(22.91484091469)),(1.0/(gamma-1.0))));
 
-        // printf("\n");
+        printf("\n");
         // HP->rho_hj[i][j] = pow((1.0 - ((gamma-1.0)/(gamma+1.0))*(IP->U_hj[i][j]*IP->fi_csi_hj[i][j] + IP->V_hj[i][j]*IP->fi_eta_hj[i][j])),(1.0/(gamma-1.0)));
     }
     
@@ -857,8 +846,7 @@
     void VarSetCal(HalfPoints * HP, IntegerPoints * IP)
     {
         int i=0, j=0;
-		double U_INF;
-
+        
         for(i=0;i<=IMAX-1;i++)
         {
             for(j=0;j<=JMAX-1;j++)
@@ -872,12 +860,7 @@
                 // Calculate Half-Point Densities
                 HPrho(HP,IP,i,j);
             }
-
-			U_INF = pow((gamma+1.0)/(gamma-1.0+2.0/(IP->M_INF*IP->M_INF)),0.5);
-			IP->rho[i][0] = pow((1.0 - ((gamma-1.0)/(gamma+1.0))*(U_INF*U_INF)),(1.0/(gamma-1.0)));
-			HP->rho_hi[i][0] = pow((1.0 - ((gamma-1.0)/(gamma+1.0))*(U_INF*U_INF)),(1.0/(gamma-1.0)));
         }
-
         for(i=0;i<=IMAX-1;i++)
         {
             for(j=0;j<=JMAX-1;j++)
@@ -965,14 +948,14 @@
                 IP->resL1[n]  = IP->resL1[n]  + fabs(IP->residue[i][j]);
                 IP->resL2[n]  = IP->resL2[n]  + IP->residue[i][j]*IP->residue[i][j];
 				
-				// printf("J_hi[%d][%d]=%lf;  J_hj[%d][%d]=%lf\n",i,j,HP->J_hi[i][j],i,j,HP->J_hj[i][j]);
-    //     		// printf("J_hi[%d][%d]=%lf;  J_hj[%d][%d]=%lf\n",i-1,j,HP->J_hi[i-1][j],i,j-1,HP->J_hj[i][j-1]);
-    //             printf("HP->rho_til_hi[%d][%d]=%lf;  HP->rho_bar_hj[%d][%d]=%lf\n",i,j,HP->rho_til_hi[i][j],i,j,HP->rho_bar_hj[i][j]);
-    //             // printf("HP->rho_til_hi[%d][%d]=%lf;  HP->rho_bar_hj[%d][%d]=%lf\n",i-1,j,HP->rho_til_hi[i-1][j],i,j-1,HP->rho_bar_hj[i][j-1]);
-    //             printf("HP->U_hi[%d][%d]=%lf;  HP->V_hj[%d][%d]=%lf\n",i,j,HP->U_hi[i][j],i,j,HP->V_hj[i][j]);
-    //             // printf("HP->U_hi[%d][%d]=%lf;  HP->V_hj[%d][%d]=%lf\n",i-1,j,HP->U_hi[i-1][j],i,j-1,HP->V_hj[i][j-1]);                
+				printf("J_hi[%d][%d]=%lf;  J_hj[%d][%d]=%lf\n",i,j,HP->J_hi[i][j],i,j,HP->J_hj[i][j]);
+        		// printf("J_hi[%d][%d]=%lf;  J_hj[%d][%d]=%lf\n",i-1,j,HP->J_hi[i-1][j],i,j-1,HP->J_hj[i][j-1]);
+                printf("HP->rho_til_hi[%d][%d]=%lf;  HP->rho_bar_hj[%d][%d]=%lf\n",i,j,HP->rho_til_hi[i][j],i,j,HP->rho_bar_hj[i][j]);
+                // printf("HP->rho_til_hi[%d][%d]=%lf;  HP->rho_bar_hj[%d][%d]=%lf\n",i-1,j,HP->rho_til_hi[i-1][j],i,j-1,HP->rho_bar_hj[i][j-1]);
+                printf("HP->U_hi[%d][%d]=%lf;  HP->V_hj[%d][%d]=%lf\n",i,j,HP->U_hi[i][j],i,j,HP->V_hj[i][j]);
+                // printf("HP->U_hi[%d][%d]=%lf;  HP->V_hj[%d][%d]=%lf\n",i-1,j,HP->U_hi[i-1][j],i,j-1,HP->V_hj[i][j-1]);                
 
-    //             printf("residuo[%d][%d] = %lf\n",i,j,IP->residue[i][j]);
+                printf("residuo[%d][%d] = %lf\n",i,j,IP->residue[i][j]);
             }
         }
         // IP->resMax = log10(IP->resMax);
@@ -1109,14 +1092,8 @@
                 Aj1 = HP->rho_bar_hj[i][j]*HP->A3_hj[i][j]/HP->J_hj[i][j];
                 
                 // f[i][j] = (alpha_n*omega*IP->residue[i][j] - Aj1*f[i][j-1])/(alpha_n - Aj);
-                if(j==JMAX-1)
-            	{
-            		f[i][j] = (alpha_n*omega*IP->residue[i][j])/(alpha_n + Aj);
-            	}
-            	else
-            	{
-            		f[i][j] = (alpha_n*omega*IP->residue[i][j] + Aj1*f[i][j+1])/(alpha_n + Aj);
-            	}
+                f[i][j] = (alpha_n*omega*IP->residue[i][j] + Aj1*f[i][j+1])/(alpha_n - Aj);
+
                 // 0        IMAX-2    IMAX-2
                 // 1        0         0
                 // 2        1         1
@@ -1126,7 +1103,6 @@
                 // IMAX     IMAX-1    0
 
                 // Boundary Condition ?
-                printf("f[%d][%d]=%lf; Aj=%lf; Aj1=%lf\n",i,j,f[i][j],Aj,Aj1);
             }
         }
 
@@ -1225,7 +1201,6 @@
     
         U_INF = pow((gamma+1.0)/(gamma-1.0+2.0/(IP->M_INF*IP->M_INF)),0.5);
     
-
         for(i=0;i<IMAX;i++)
         {
             // Airfoil Boundary - Wall Condition
@@ -1235,7 +1210,7 @@
             
             HP->U_hj[i][JMAX-1] = HP->U_hj[i][JMAX-2];
             
-            HP->rho_hi[i][JMAX-1] = HP->rho_hi[i][JMAX-2];
+
 
             // HP->V_hi[i][JMAX-1] = -HP->V_hi[i][JMAX-2];
             // HP->rho_til_hi[i][JMAX-1] = HP->rho_til_hi[i][JMAX-2];
@@ -1255,8 +1230,8 @@
             fi_inf = U_INF*mesh->x[i][0];
             IP->fi[i][0] = fi_inf;
 
-	            IP->U[i][JMAX-1] = IP->U[i][JMAX-2];
-	            IP->fi[i][JMAX-1] = IP->fi[i][JMAX-2];
+            // IP->U[i][JMAX-1] = IP->U[i][JMAX-2];
+            // IP->fi[i][JMAX-1] = IP->fi[i][JMAX-2];
             
         }   
         

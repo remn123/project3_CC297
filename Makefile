@@ -1,26 +1,42 @@
-IDIR =../include
-CC=gcc
-CFLAGS=-I$(IDIR)
+#
+#	Makefile
+#
+#	Project 3 - CC297
+#
 
-ODIR=obj
-LDIR =../lib
+# compiler to use
+CC = clang
+#CC = gcc
 
-LIBS=-lm
+# Flags (-Wall, -Werror nao)
+UNUSEDARGS=-Wunused-value
+#UNUSEDARGS=-Ounused-arguments
 
-_DEPS = structs.h settings.h
-DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+CFLAGS = -ggdb3 -O0 $(UNUSEDARGS) -std=c11 -Wall #-Werror
 
-_OBJ = project3.o functions.o 
-OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+# nome do executavel
+EXE = project3
 
+# lista de arquivos 'Headers', separados por 'espacos'.
+HDRS = structs.h settings.h functions.h
 
-$(ODIR)/%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+# lista de 'Libraries', separados por espacos.
+# cada qual com acompanhada pelo prefixo -l
+LIBS = -lm
 
-project3: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS) $(LIBS)
+# lista de arquivos fonte, separados por espaco.
+SRCS = project3.c functions.c
 
-.PHONY: clean
+# lista automatica de arquivos .o
+OBJS = $(SRCS:.c=.o)
 
+# target principal (que vai ser executado em default pelo comando 'make')
+$(EXE): $(OBJS) $(HDRS) Makefile
+		$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
+		
+# dependencias
+$(OBJS): $(HDRS) Makefile
+
+# apagar tudo!
 clean:
-	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ 
+		rm -f core $(EXE) *.o

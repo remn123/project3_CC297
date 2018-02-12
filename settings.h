@@ -3,8 +3,8 @@
     
     // Settings
         // Convergence parameters
-        #define RMIN -7   // converged residue
-        #define RMAX 3   // diverged residue
+        #define RMIN 1E-7   // converged residue
+        #define RMAX 1E+3   // diverged residue
         #define NMAX 1E+4   // max number of iterations
     
         // AF2 constants
